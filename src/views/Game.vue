@@ -4,6 +4,7 @@
       <TopArea
         :initialSetting="gameOver"
         @after-time-is-up="afterTimeIsUp"
+        :key="componentKey"
       ></TopArea>
 
       <Question
@@ -11,9 +12,16 @@
         :initial-qn="qn"
         :initial-point="point"
         @after-click-button="afterClickButton"
+        :key="componentKey + 1"
       ></Question>
     </div>
-    <Result v-if="isShow" :total="point" :cc="correctCount"></Result>
+    <Result
+      v-if="isShow"
+      :total="point"
+      :cc="correctCount"
+      :key="componentKey + 2"
+      @after-forces-update="afterForcesUpdate"
+    ></Result>
   </div>
 </template>
 <script>
@@ -120,14 +128,15 @@ export default {
       qn: 0,
       gameOver: false,
       isShow: false,
-      correctCount: 0
+      correctCount: 0,
+      componentKey: 0
     }
   },
   created() {
     bgm.pause()
     bgm.currentTime = 0
     setTimeout(this.fetchQuestion, 3000)
-    // setTimeout(this.playBgm, 3000)
+    setTimeout(this.playBgm, 3000)
   },
   methods: {
     fetchQuestion() {
@@ -144,6 +153,9 @@ export default {
     afterTimeIsUp() {
       this.endGame()
     },
+    afterForcesUpdate() {
+      this.forceRerender()
+    },
     playBgm() {
       bgm.play()
       bgm.loop = true
@@ -159,7 +171,27 @@ export default {
       })
       this.correctCount = correntQuestion.length
       this.point = correntQuestion.length * 200
+    },
+    clearAllSettings() {
+      const options = document.querySelectorAll('.option')
+      options.forEach(op => {
+        op.disabled = false
+      })
+    },
+    forceRerender() {
+      this.isShow = false
+      this.qn = 0
+      this.point = 0
+      answerState.length = 0
+      this.componentKey += 1
+      bgm.pause()
+      bgm.currentTime = 0
+      setTimeout(this.fetchQuestion, 3000)
+      setTimeout(this.playBgm, 3000)
     }
+  },
+  beforeDestroy() {
+    this.clearAllSettings()
   }
 }
 </script>

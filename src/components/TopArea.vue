@@ -57,13 +57,6 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.timer)
-    this.clearAllSettings()
-  },
-  clearAllSettings() {
-    const options = document.querySelectorAll('.option')
-    options.forEach(op => {
-      op.disabled = false
-    })
   }
 }
 </script>

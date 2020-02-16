@@ -19,7 +19,7 @@
       <div class="description">
         {{ questions.Content }}
       </div>
-      <div class="answers" v-on:click="judge">
+      <div class="answers" @click.stop.prevent="judge">
         <button class="option generalColor" id="1">
           <span>{{ questions.Option1 }}</span>
         </button>

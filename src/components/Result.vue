@@ -16,8 +16,7 @@
       <div class="total-point">答對題數 {{ num }}</div>
       <div class="ex">獲得經驗值 {{ 100 + ex / 4 }}</div>
       <div class="btn-group">
-        <!-- <button v-on:click="methodThatForcesUpdate"></button> -->
-        <!-- <router-link to="/game">再來一場</router-link> -->
+        <button @click.stop.prevent="forcesUpdate">再來一場</button>
         <router-link to="/">結束這回合</router-link>
       </div>
     </div>
@@ -40,6 +39,11 @@ export default {
     return {
       ex: this.total,
       num: this.cc
+    }
+  },
+  methods: {
+    forcesUpdate() {
+      this.$emit('after-forces-update')
     }
   }
 }
@@ -90,7 +94,8 @@ export default {
   font-size: 20px;
 }
 
-.btn-group > a {
+.btn-group > a,
+.btn-group > button {
   background: none;
   padding: 5px 0px;
   border: 1px solid;
