@@ -50,7 +50,7 @@ export default {
     bgm.pause()
     bgm.currentTime = 0
     setTimeout(this.fetchQuestion, 3000)
-    // setTimeout(this.playBgm, 3000)
+    setTimeout(this.playBgm, 3000)
   },
   methods: {
     async fetchQuestion() {
@@ -106,7 +106,7 @@ export default {
       bgm.pause()
       bgm.currentTime = 0
       setTimeout(this.fetchQuestion, 3000)
-      // setTimeout(this.playBgm, 3000);
+      setTimeout(this.playBgm, 3000)
     }
   },
   beforeDestroy() {
