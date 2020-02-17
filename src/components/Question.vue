@@ -163,8 +163,7 @@ export default {
   position: absolute;
   height: 2.5rem;
   width: 480px;
-
-  top: 380px;
+  top: 360px;
 }
 .question {
   font-size: 18px;
@@ -172,27 +171,26 @@ export default {
 }
 
 .description {
-  height: 120px;
   background: lightgray;
   border-radius: 5px;
   padding: 0px 10px;
   text-align: left;
+  font-size: 16px;
 }
 
 .answers {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .answers > button {
   display: block;
-
   border-radius: 5px;
   cursor: pointer;
   border: none;
   width: 100%;
   margin-bottom: 12px;
   padding: 3px 15px;
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
 }
 
@@ -213,10 +211,6 @@ export default {
     padding-top: 20px;
     font-size: 24px;
     padding: 20px 80px;
-  }
-
-  .description {
-    height: 100px;
   }
 
   .progress {

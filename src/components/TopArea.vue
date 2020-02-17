@@ -77,7 +77,7 @@ export default {
 
 .right > img,
 .left > img {
-  width: 100px;
+  width: 90px;
 }
 
 .middle {
@@ -88,7 +88,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 24px;
   height: inherit;
 }
 
@@ -96,14 +96,14 @@ export default {
   border: 3px solid;
   color: cadetblue;
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
 }
 
 .my-name,
 .the-other-name {
-  font-size: 24px;
-  margin-top: 4px;
+  font-size: 20px;
+  margin-top: 3px;
 }
 
 .feedback {
