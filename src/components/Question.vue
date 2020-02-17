@@ -1,5 +1,6 @@
 <template
-  ><div class="main-content">
+  >
+  <div class="main-content">
     <div class="my-progress">
       <div class="my-point">{{ point }}</div>
       <div class="progress">
@@ -16,9 +17,7 @@
     </div>
     <div class="question">
       <div>《Q {{ qn + 1 }}》</div>
-      <div class="description">
-        {{ questions.Content }}
-      </div>
+      <div class="description">{{ questions.Content }}</div>
       <div class="answers" @click.stop.prevent="judge">
         <button class="option generalColor" id="1">
           <span>{{ questions.Option1 }}</span>
@@ -53,9 +52,14 @@
   </div>
 </template>
 <script>
-const correct = new Audio('correct.ogg')
-const mistake = new Audio('mistake.ogg')
+const correct = new Audio("correct.ogg");
+const mistake = new Audio("mistake.ogg");
+// import { VueMathjax } from "vue-mathjax";
+
 export default {
+  // components: {
+  //   "vue-mathjax": VueMathjax
+  // },
   props: {
     initialQuestion: {
       type: Object,
@@ -75,61 +79,100 @@ export default {
       questions: this.initialQuestion,
       qn: this.initialQn,
       point: this.initialPoint,
-      state: 'wrong'
-    }
+      state: "wrong",
+      formula: "$$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$"
+    };
   },
   watch: {
     initialQuestion(questions) {
       this.questions = {
         ...this.questions,
         ...questions
-      }
+      };
     }
   },
   methods: {
     judge: function(event) {
-      const rightAnswer = document.getElementById(`${this.questions.Solution}`)
-      const closestElement = event.target.closest('.option')
-      const options = document.querySelectorAll('.option')
+      const rightAnswer = document.getElementById(`${this.questions.Solution}`);
+      const closestElement = event.target.closest(".option");
+      const options = document.querySelectorAll(".option");
       options.forEach(op => {
-        op.disabled = true
-      })
-      rightAnswer.classList.replace('generalColor', 'bingoColor')
+        op.disabled = true;
+      });
+      rightAnswer.classList.replace("generalColor", "bingoColor");
       if (closestElement === rightAnswer) {
-        correct.play()
-        this.point = this.point + 200
-        document.getElementById('my-progress').style.width = `${this.point /
-          10}%`
-        this.state = 'correct'
+        correct.play();
+        this.point = this.point + 200;
+        document.getElementById("my-progress").style.width = `${this.point /
+          10}%`;
+        this.state = "correct";
       } else {
-        mistake.play()
-        this.state = 'wrong'
+        mistake.play();
+        this.state = "wrong";
       }
-      setTimeout(this.twoSecond, 2000)
+      setTimeout(this.twoSecond, 2000);
     },
     twoSecond() {
-      const rightAnswer = document.getElementById(`${this.questions.Solution}`)
-      const options = document.querySelectorAll('.option')
+      const rightAnswer = document.getElementById(`${this.questions.Solution}`);
+      const options = document.querySelectorAll(".option");
       options.forEach(op => {
-        op.disabled = false
-      })
-      rightAnswer.classList.replace('bingoColor', 'generalColor')
-      this.qn += 1
-      this.handleClick()
+        op.disabled = false;
+      });
+      rightAnswer.classList.replace("bingoColor", "generalColor");
+      this.qn += 1;
+      this.handleClick();
     },
     handleClick() {
-      this.$emit('after-click-button', {
+      this.$emit("after-click-button", {
         questionId: this.questions.ID,
         qn: this.qn,
         state: this.state
-      })
+      });
     }
   }
-}
+};
 </script>
-<style>
+<style >
+.container {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.my-point,
+.the-other-point {
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: auto;
+}
+
+.my-progress,
+.the-other-progress {
+  display: flex;
+  justify-content: center;
+}
+
+.progress {
+  transform: rotate(-90deg);
+  position: absolute;
+  height: 2.5rem;
+  width: 480px;
+
+  top: 380px;
+}
+.question {
+  font-size: 18px;
+  padding: 0px;
+}
+
 .description {
-  height: 110px;
+  height: 120px;
   background: lightgray;
   border-radius: 5px;
   padding: 0px 10px;
@@ -137,19 +180,19 @@ export default {
 }
 
 .answers {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .answers > button {
   display: block;
-  margin-bottom: 15px;
-  padding: 2px 40px;
+
   border-radius: 5px;
   cursor: pointer;
   border: none;
   width: 100%;
-  font-size: 20px;
-  letter-spacing: 1px;
+  margin-bottom: 12px;
+  padding: 3px 15px;
+  font-size: 18px;
   text-align: left;
 }
 
@@ -163,5 +206,33 @@ export default {
 
 .generalColor:hover {
   background: antiquewhite;
+}
+
+@media screen and (min-width: 768px) {
+  .question {
+    padding-top: 20px;
+    font-size: 24px;
+    padding: 20px 80px;
+  }
+
+  .description {
+    height: 100px;
+  }
+
+  .progress {
+    height: 4rem;
+    width: 480px;
+    top: 450px;
+  }
+
+  .answers {
+    margin-top: 30px;
+  }
+  .answers > button {
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    padding: 2px 40px;
+    font-size: 20px;
+  }
 }
 </style>

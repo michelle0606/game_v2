@@ -1,8 +1,8 @@
 <template>
-  <div class="home container">
+  <div class="home">
     <h2>歡迎 Walle</h2>
     <div class="avatar">
-      <img src="orange.png" alt="" />
+      <img src="orange.png" alt />
     </div>
     <div class="info">
       <div>等級：2</div>
@@ -27,12 +27,12 @@
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
-<style>
+<style >
 .home {
-  margin-top: 50px;
+  margin-top: 50px !important;
 }
 
 .avatar > img {

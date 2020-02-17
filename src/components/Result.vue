@@ -4,12 +4,12 @@
       <div class="title">遊戲結束</div>
       <div class="who">
         <div>
-          <img src="orange.png" alt="" />
+          <img src="orange.png" alt />
           <div>Walle</div>
         </div>
         <div class="vs">V.S.</div>
         <div>
-          <img src="apple.png" alt="" />
+          <img src="apple.png" alt />
           <div>電腦</div>
         </div>
       </div>
@@ -39,14 +39,14 @@ export default {
     return {
       ex: this.total,
       num: this.cc
-    }
+    };
   },
   methods: {
     forcesUpdate() {
-      this.$emit('after-forces-update')
+      this.$emit("after-forces-update");
     }
   }
-}
+};
 </script>
 <style scoped>
 #result {
@@ -59,7 +59,6 @@ export default {
 
 .box {
   background-color: antiquewhite;
-  width: 400px;
   height: 500px;
   margin: auto;
   border-radius: 20px;
@@ -76,6 +75,9 @@ export default {
   display: flex;
   justify-content: center;
   margin: 30px;
+}
+.who > div > img {
+  width: 130px;
 }
 
 .vs {
@@ -110,5 +112,11 @@ export default {
 
 img {
   width: 150px;
+}
+
+@media screen and (min-width: 768px) {
+  .box {
+    width: 400px;
+  }
 }
 </style>
